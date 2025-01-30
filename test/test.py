@@ -1,13 +1,11 @@
-import unittest
-from app import app
+from flask import Flask, request
 
-class TestApp(unittest.TestCase):
-    def test_home(self):
-        tester = app.test_client()
-        response = tester.get('/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, b"Pythonwala Huuu")
+app = Flask(__name__)
 
+@app.route('/')
+def home():
+    app.logger.info(f"Request received from {request.remote_addr}")
+    return "Python Apppppp Hosting"
 
 if __name__ == "__main__":
-    unittest.main()
+    app.run(host="0.0.0.0", port=5000, debug=True)
